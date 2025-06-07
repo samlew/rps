@@ -1,23 +1,51 @@
-const gameOptions = ["rock", "paper", "scissors"];
+const outcomes = {
+  "ROCK": {
+    "ROCK": "tie",
+    "PAPER": "lose",
+    "SCISSORS": "win",
+  },
+    "PAPER": {
+    "ROCK": "win",
+    "PAPER": "tie",
+    "SCISSORS": "lose",
+  },
+    "SCISSORS": {
+    "ROCK": "lose",
+    "PAPER": "win",
+    "SCISSORS": "tie",
+  }
+}
 
 let computerScore = 0;
 let humanScore = 0;
 
 function getComputerChoice() {
-  let gameChoice = gameOptions[Math.floor(Math.random() * 3)];
-  return gameChoice;
+  const choices = Object.keys(outcomes);
+  return choices[Math.floor(Math.random() * choices.length)]
 }
 
 function getHumanChoice() {
-  let humanChoice = prompt("Rock, paper, or scissors?");
+  let humanChoice = prompt("Rock, paper, or scissors?").toUpperCase();
   return humanChoice;
 }
-// testing adding to human score
-// function addHumanScore() {
-//   humanScore += 99;
-//   return humanScore;
-// }
 
-// console.log(addHumanScore()); -- testing the add functionality
-console.log(getComputerChoice());
-console.log(getHumanChoice());
+function playRound(humanChoice, computerChoice) {
+  const result = outcomes[humanChoice][computerChoice]
+  console.log(`You ${result}! ${humanChoice} ${result}s against ${computerChoice}.`)
+  return result
+}
+function addScore(result) {
+  if(result === "win") {
+    humanScore++;
+  }
+  else if(result == "lose") {
+    computerScore++;
+  }
+}
+
+let humanChoice = getHumanChoice();
+let computerChoice = getComputerChoice();
+const result = playRound(humanChoice, computerChoice);
+console.log(result);
+addScore(result);
+console.log(`You have ${humanScore} points. The computer has ${computerScore} points.`)
