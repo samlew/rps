@@ -31,7 +31,8 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
   const result = outcomes[humanChoice][computerChoice]
-  return result;
+  console.log(`You ${result}! ${humanChoice} ${result}s against ${computerChoice}.`)
+  return result
 }
 function addScore(result) {
   if(result === "win") {
